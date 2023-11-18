@@ -1,0 +1,40 @@
+<div>
+  <h2>Data Entry</h2>
+  <form (ngSubmit)="addEntry()">
+    <label for="idNumber">ID Number:</label>
+    <input id="idNumber" name="idNumber" type="text" [(ngModel)]="newEntry.idNumber" required>
+
+    <label for="firstName">First Name:</label>
+    <input id="firstName" name="firstName" type="text" [(ngModel)]="newEntry.firstName" required>
+
+    <label for="lastName">Last Name:</label>
+    <input id="lastName" name="lastName" type="text" [(ngModel)]="newEntry.lastName" required>
+
+    <button type="submit">Add Entry</button>
+  </form>
+
+  <h2>Entries</h2>
+  <ul>
+    <li *ngFor="let entry of entries$ | async">
+      {{ entry.idNumber }} - {{ entry.firstName }} {{ entry.lastName }}
+      <button (click)="updateEntry(entry)">Update</button>
+      <button (click)="deleteEntry(entry.idNumber)">Delete</button>
+    </li>
+  </ul>
+
+  <div *ngIf="selectedEntry.idNumber">
+    <h2>Update Entry</h2>
+    <form (ngSubmit)="saveUpdate()">
+      <label for="updateIdNumber">ID Number:</label>
+      {{selectedEntry.idNumber}}
+
+      <label for="updateFirstName">First Name:</label>
+      <input id="updateFirstName" name="updateFirstName" type="text" [(ngModel)]="selectedEntry.firstName" required>
+
+      <label for="updateLastName">Last Name:</label>
+      <input id="updateLastName" name="updateLastName" type="text" [(ngModel)]="selectedEntry.lastName" required>
+
+      <button type="submit">Save Update</button>
+    </form>
+  </div>
+</div>
