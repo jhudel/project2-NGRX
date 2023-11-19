@@ -30,20 +30,7 @@ export class EntryService {
 
     return of();
   }
-
-  addEntry(newEntry: any): Observable<void> {
-    const isDuplicate = this.entries.some((entry) => entry.idNumber === newEntry.idNumber);
-
-    if (isDuplicate) {
-      console.error('Duplicate entry detected!');
-      return of();
-    }
-
-    this.entries.push({ ...newEntry });
-    this.entriesSubject.next([...this.entries]);
-    return of();
-  }
-
+  
   deleteEntry(idNumber: string): Observable<void> {
     return this.entriesSubject.pipe(
       take(1),
