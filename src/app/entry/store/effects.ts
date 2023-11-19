@@ -49,19 +49,6 @@ export class EntryEffects {
     )
   );
 
-  validateDuplicateEntry$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(EntryActions.validateDuplicateEntry),
-      withLatestFrom(this.store.pipe(select(selectAllEntries))),
-      mergeMap(([action, entries]) =>
-        this.entryService.validateEntryDuplication(action.entry, entries).pipe(
-          map((isDuplicate) => EntryActions.validateDuplicateEntrySuccess({ isDuplicate })),
-          catchError(() => of(EntryActions.validateDuplicateEntryFailure()))
-        )
-      )
-    )
-  );
-
 deleteEntry$ = createEffect(() =>
   this.actions$.pipe(
     ofType(EntryActions.deleteEntry),
